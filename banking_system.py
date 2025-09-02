@@ -11,7 +11,7 @@ class BankAccount:
         sql = "INSERT INTO accounts (name, pin, balance) VALUES (%s, %s, %s)"
         self.cursor.execute(sql, (name, pin, 0))
         self.db.commit()
-        print(f"✅ Account created for {name}. Account Number: {self.cursor.lastrowid}")
+        print(f" Account created for {name}. Account Number: {self.cursor.lastrowid}")
         
     # Deposit amount into a specific account
     def deposit(self, acc_no, amount):
@@ -19,9 +19,9 @@ class BankAccount:
         self.cursor.execute(sql, (amount, acc_no))
         self.db.commit()
         if self.cursor.rowcount:
-            print(f"✅ Deposited ₹{amount} to Account No {acc_no}")
+            print(f" Deposited ₹{amount} to Account No {acc_no}")
         else:
-            print("❌ Account not found.")
+            print(" Account not found.")
     # Withdraw amount after PIN verification
     def withdraw(self, acc_no,pin,amount):
         self.cursor.execute("SELECT balance FROM accounts WHERE account_number = %s AND pin = %s", (acc_no,pin))
@@ -32,11 +32,11 @@ class BankAccount:
                 sql = "UPDATE accounts SET balance = balance - %s WHERE account_number = %s"
                 self.cursor.execute(sql, (amount, acc_no))
                 self.db.commit()
-                print(f"✅ Withdrew ₹{amount} from Account No {acc_no}")
+                print(f" Withdrew ₹{amount} from Account No {acc_no}")
             else:
-                print("❌ Insufficient funds.")
+                print(" Insufficient funds.")
         else:
-            print("❌ Account not found.")
+            print(" Account not found.")
             
     # Check balance after verifying PIN
     def check_balance(self, acc_no, pin):
@@ -45,10 +45,10 @@ class BankAccount:
         result = self.cursor.fetchone()
         if result:
             name, balance = result
-            print(f"👤 Account Holder: {name}")
-            print(f"💰 Balance: ₹{balance}")
+            print(f" Account Holder: {name}")
+            print(f" Balance: ₹{balance}")
         else:
-            print("❌ Invalid account number or PIN.")
+            print(" Invalid account number or PIN.")
             
 # Main function to run the banking system
 def main():
@@ -95,10 +95,10 @@ def main():
             pin = int(input("Enter your PIN: "))
             bank.check_balance(acc_no, pin)
         elif choice == '5':
-            print("👋 Exiting...")
+            print(" Exiting...")
             break
         else:
-            print("❌ Invalid choice. Try again.")
+            print(" Invalid choice. Try again.")
 
     db.close()
 
